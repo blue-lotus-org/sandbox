@@ -1,0 +1,61 @@
+{
+  "sandbox": {
+    "name": "sandbox-default",
+    "hostname": "sandbox-container",
+    "rootfs_path": "/var/lib/sandbox/rootfs/ubuntu_focal",
+    "command": ["/bin/bash"],
+    "auto_bootstrap": false,
+    "distro": "ubuntu",
+    "release": "focal"
+  },
+  "resources": {
+    "memory_mb": 512,
+    "cpu_quota_percent": 50,
+    "max_pids": 100,
+    "enable_swap": false
+  },
+  "isolation": {
+    "namespaces": ["pid", "net", "ipc", "uts", "mount", "user"],
+    "uid_map": {
+      "host_uid": 1000,
+      "container_uid": 0,
+      "count": 1
+    },
+    "gid_map": {
+      "host_gid": 1000,
+      "container_gid": 0,
+      "count": 1
+    }
+  },
+  "security": {
+    "capabilities": [],
+    "seccomp_policy": "default",
+    "seccomp_profile_path": ""
+  },
+  "mounts": {
+    "bind_mounts": [
+      {
+        "source": "/tmp",
+        "target": "/tmp",
+        "read_only": false
+      }
+    ],
+    "volumes": []
+  },
+  "ai_module": {
+    "enabled": false,
+    "provider": "openai",
+    "api_key_env": "OPENAI_API_KEY",
+    "base_url": "https://api.openai.com/v1",
+    "model": "gpt-4-turbo",
+    "temperature": 0.2,
+    "max_tokens": 1000,
+    "system_prompt": "You are a sandbox assistant that helps analyze and configure sandbox environments.",
+    "auto_report_errors": true
+  },
+  "logging": {
+    "level": "info",
+    "output": "stdout",
+    "log_file": "/var/log/sandbox/sandbox.log"
+  }
+}
